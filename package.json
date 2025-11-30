@@ -1,0 +1,44 @@
+{
+  "name": "face-swap-studio",
+  "version": "1.0.0",
+  "description": "Production-ready Face Swap Studio Suite - Web App and Windows 10 Desktop Application",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "desktop"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../desktop && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:desktop": "cd desktop && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "echo 'Backend is Node.js - no build needed'",
+    "build:frontend": "cd frontend && npm run build",
+    "build:desktop": "npm run build:frontend && cp -r frontend/build desktop/frontend-build && cd desktop && npm run build:win",
+    "start": "cd backend && npm start",
+    "test": "cd backend && npm test",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint"
+  },
+  "keywords": [
+    "face-swap",
+    "image-processing",
+    "electron",
+    "react",
+    "express",
+    "studio",
+    "windows"
+  ],
+  "author": "Face Swap Studio Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

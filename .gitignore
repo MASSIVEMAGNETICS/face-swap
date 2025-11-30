@@ -1,0 +1,67 @@
+# Dependencies
+node_modules/
+.npm
+
+# Build outputs
+dist/
+build/
+*.local
+frontend-build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+*.dll
+*.exe
+
+# Testing
+coverage/
+.nyc_output/
+
+# Uploads (user data)
+uploads/temp/*
+uploads/processed/*
+!uploads/temp/.gitkeep
+!uploads/processed/.gitkeep
+
+# Electron
+desktop/dist/
+desktop/frontend-build/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# Lock files (keep one based on preference)
+# package-lock.json
+# yarn.lock
+
+# Debug
+.debug/
