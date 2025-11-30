@@ -1,7 +1,17 @@
 /**
  * Face Detection Service
- * Simulated face detection service 
- * In production, this would use TensorFlow.js with face-api.js
+ * 
+ * IMPORTANT: This is a DEMO/SIMULATION implementation.
+ * 
+ * This service simulates face detection by returning placeholder data based on
+ * image dimensions. For production use, this should be replaced with actual
+ * ML-powered face detection using:
+ * - TensorFlow.js with face-api.js for browser/Node.js environments
+ * - OpenCV with dlib for server-side processing
+ * - Cloud services like AWS Rekognition or Google Cloud Vision API
+ * 
+ * The simulated implementation allows the application to demonstrate the full
+ * workflow without requiring ML model dependencies during development.
  */
 
 const sharp = require('sharp');
@@ -10,7 +20,7 @@ const { ProcessingError } = require('../utils/errors');
 
 /**
  * Face Detection Service Class
- * Provides face detection capabilities
+ * Provides face detection capabilities (SIMULATED - see header comments)
  */
 class FaceDetectionService {
   constructor() {
@@ -44,12 +54,16 @@ class FaceDetectionService {
       const metadata = await sharp(input).metadata();
       const { width, height } = metadata;
 
-      // Simulate face detection by returning a central region
-      // In production, this would use face-api.js detection
+      // SIMULATION: Returns a placeholder face region centered in the image
+      // This allows the application workflow to function without ML models.
+      // Production implementation would replace this with actual face detection:
+      // - Load face-api.js models (tinyFaceDetector, faceLandmark68Net, etc.)
+      // - Use faceapi.detectAllFaces(input).withFaceLandmarks().withFaceDescriptors()
+      // - Return actual detected face data with real confidence scores
       const detectedFaces = [
         {
           id: 1,
-          confidence: 0.95,
+          confidence: 0.95, // Simulated confidence
           box: {
             x: Math.floor(width * 0.25),
             y: Math.floor(height * 0.15),
@@ -61,7 +75,7 @@ class FaceDetectionService {
         },
       ];
 
-      logger.debug(`Detected ${detectedFaces.length} face(s) in image`);
+      logger.debug(`Detected ${detectedFaces.length} face(s) in image (SIMULATED)`);
       return detectedFaces;
     } catch (error) {
       logger.error('Face detection failed:', error);

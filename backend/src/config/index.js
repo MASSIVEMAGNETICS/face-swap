@@ -15,7 +15,15 @@ const config = {
 
   // Security Configuration
   security: {
-    jwtSecret: process.env.JWT_SECRET || 'face-swap-studio-secret-key-change-in-production',
+    // In production, JWT_SECRET must be set - fail fast if not provided
+    jwtSecret: (() => {
+      const secret = process.env.JWT_SECRET;
+      const env = process.env.NODE_ENV || 'development';
+      if (env === 'production' && !secret) {
+        throw new Error('JWT_SECRET environment variable is required in production');
+      }
+      return secret || 'face-swap-studio-dev-secret-key-not-for-production';
+    })(),
     jwtExpiration: process.env.JWT_EXPIRATION || '24h',
     bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS, 10) || 12,
     rateLimitWindowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10) || 15 * 60 * 1000,

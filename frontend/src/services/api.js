@@ -32,13 +32,19 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
+    // For 401 errors, dispatch a custom event that can be handled by React components
+    // This avoids direct window.location manipulation which can interfere with React Router
     if (error.response?.status === 401) {
       localStorage.removeItem('authToken');
-      window.location.href = '/login';
+      // Dispatch custom event for auth state handling
+      window.dispatchEvent(new CustomEvent('auth:unauthorized'));
     }
     
     const message = error.response?.data?.error?.message || 'An error occurred';
-    return Promise.reject(new Error(message));
+    const enhancedError = new Error(message);
+    enhancedError.status = error.response?.status;
+    enhancedError.code = error.response?.data?.error?.code;
+    return Promise.reject(enhancedError);
   }
 );
 

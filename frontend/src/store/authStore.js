@@ -78,8 +78,9 @@ const useAuthStore = create(
           set({ user: response.data.user, isLoading: false });
         } catch (error) {
           set({ isLoading: false });
-          // If profile fetch fails, clear auth
-          if (error.message.includes('401')) {
+          // If profile fetch fails due to auth error, clear auth state
+          // Using status code for reliable detection
+          if (error.status === 401 || error.code === 'AUTHENTICATION_ERROR') {
             get().logout();
           }
         }

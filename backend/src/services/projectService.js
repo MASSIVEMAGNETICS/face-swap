@@ -266,10 +266,21 @@ class ProjectService {
     projects.set(projectId, project);
 
     try {
-      // Read images
+      // Read images with proper error handling
       const fs = require('fs').promises;
-      const sourceBuffer = await fs.readFile(sourceAsset.path);
-      const targetBuffer = await fs.readFile(targetAsset.path);
+      let sourceBuffer, targetBuffer;
+      
+      try {
+        sourceBuffer = await fs.readFile(sourceAsset.path);
+      } catch (fileError) {
+        throw new ValidationError(`Source image file not found or cannot be read: ${sourceAsset.filename}`);
+      }
+      
+      try {
+        targetBuffer = await fs.readFile(targetAsset.path);
+      } catch (fileError) {
+        throw new ValidationError(`Target image file not found or cannot be read: ${targetAsset.filename}`);
+      }
 
       // Get face data (use cached or detect new)
       let sourceFace = sourceAsset.faces[0];

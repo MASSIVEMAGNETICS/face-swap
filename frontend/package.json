@@ -9,12 +9,16 @@
     "preview": "vite preview",
     "lint": "eslint src/"
   },
-  "keywords": ["face-swap", "react", "studio"],
+  "keywords": [
+    "face-swap",
+    "react",
+    "studio"
+  ],
   "author": "Face Swap Studio Team",
   "license": "MIT",
   "description": "Face Swap Studio Web Application",
   "dependencies": {
-    "axios": "^1.6.2",
+    "axios": "^1.13.2",
     "lucide-react": "^0.303.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
